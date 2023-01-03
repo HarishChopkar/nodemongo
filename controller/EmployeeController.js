@@ -1,17 +1,45 @@
 const Employee = require("../models/Employee");
 // show the list of employee
-const index = (req, res, next) => {
-  Employee.find()
-    .then((response) => {
-      res.json({ response });
-    })
-    .catch((err) => {
-      res.json({
-        message: "An error occured!",
-      });
-    });
-};
+// const index = (req, res, next) => {
+//   Employee.find()
+//     .then((response) => {
+//       res.json({ response });
+//     })
+//     .catch((err) => {
+//       res.json({
+//         message: "An error occured!",
+//       });
+//     });
+// };
 
+// pagiantion index
+const index = (req, res, next) => {
+  if (req.query.page && req.query.limit) {
+    Employee.paginate({}, { page: req.query.page, limit: req.query.limit })
+      .then((response) => {
+        res.json({
+          response,
+        });
+      })
+      .catch((error) => {
+        res.json({
+          message: "An error occured" + error,
+        });
+      });
+  } else {
+    Employee.find()
+      .then((response) => {
+        res.json({
+          response,
+        });
+      })
+      .catch((error) => {
+        res.json({
+          message: "An error occured" + error,
+        });
+      });
+  }
+};
 // Show single employee
 const show = (req, res, next) => {
   let employeeID = req.body.employeeID;

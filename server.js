@@ -2,8 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const EmployeeRoute = require("./routes/employee");
+// for registeration and login
 const AuthRoute = require("./routes/auth");
 
 mongoose.connect("mongodb://localhost:27017/testdb", {

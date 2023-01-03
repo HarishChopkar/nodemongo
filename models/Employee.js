@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const mongoosePaginate = require("mongoose-paginate-v2");
+
 const employeeSchema = new Schema(
   {
     name: {
@@ -24,5 +26,6 @@ const employeeSchema = new Schema(
   { timestamp: true }
 );
 
+employeeSchema.plugin(mongoosePaginate);
 const Employee = mongoose.model("Employee", employeeSchema);
 module.exports = Employee;
